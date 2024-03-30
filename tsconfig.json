@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/itemSchema.js", "app/(tabs)/three.tsx", "app/screens/uno.js", "app/screens/duo.js", "app/(tabs)/_layout.js"  ]
 }
