@@ -14,7 +14,7 @@ export default function DetailsScreen(){
     async function getTask(id){ 
         try {
           console.log(id);
-          const response = await axios.get("http://192.168.43.81:5000/tasks/get-task/"+id);
+          const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+id);
         //   console.log(response);
         //   console.log(response._response);
           console.log(response.data);

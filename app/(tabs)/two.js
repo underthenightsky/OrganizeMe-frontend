@@ -9,7 +9,7 @@ import {useRouter,Stack,
 async function getTask(item){
   try {
     console.log(item._id);
-    const response = await axios.get("http://192.168.43.81:5000/tasks/get-task/"+item._id.toString());
+    const response = await axios.get(`${process.env.API_URL}tasks/get-task/`+item._id.toString());
     console.log(response.data);             
     
 }
@@ -22,7 +22,7 @@ export default function TabTwoScreen({}) {
   const [completedTasks, setCompletedTasks] = useState([]);
   async function getCompletedTasks(){
     try {
-      const response = await axios.get("http://192.168.43.81:5000/tasks/get-completed");
+      const response = await axios.get(`${process.env.API_URL}/tasks/get-completed`);
 
     setCompletedTasks( response.data );
     }
@@ -81,6 +81,7 @@ export default function TabTwoScreen({}) {
 }
 else{
   return (
+    
     <View style={styles.container}>
        <FlatList
         data={completedTasks}

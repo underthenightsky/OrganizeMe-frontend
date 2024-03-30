@@ -25,7 +25,7 @@ export default function TabOneScreen(){
   
   const getAllTasks= async() => {
     try {
-      const response = await axios.get("http://192.168.43.81:5000/tasks/get-tasks");
+      const response = await axios.get(`${process.env.API_URL}/tasks/get-tasks`);
 
     setAllTasks( response.data );
     }
@@ -41,7 +41,7 @@ export default function TabOneScreen(){
   async function getTask(item){
     try {
       console.log(item._id);
-      const response = await axios.get("http://192.168.43.81:5000/tasks/get-task/"+item._id.toString());
+      const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+item._id.toString());
       console.log(response.data);             
       
   }
@@ -62,7 +62,7 @@ const renderTaskItem = ({ item }) => {
     const updateCompletion= async (item) => {
       try {
         console.log(item)
-        await axios.put(`http://192.168.43.81:5000/tasks/update-completion/${item._id.toString()}`);
+        await axios.put(`${process.env.API_URL}/tasks/update-completion/${item._id.toString()}`);
         Alert.alert('Congratulations', 'Task Completed');
         getAllTasks()
       } catch (error) {
@@ -107,7 +107,7 @@ const renderTaskItem = ({ item }) => {
   const rightSwipeActions = (item) => {
     async function deleteTask (task)  {
       try {
-        await axios.delete(`http://192.168.43.81:5000/tasks/delete/${task._id.toString()}`);
+        await axios.delete(`${process.env.API_URL}/tasks/delete/${task._id.toString()}`);
         Alert.alert('Success', 'Task deleted successfully');
         getAllTasks()
       } catch (error) {

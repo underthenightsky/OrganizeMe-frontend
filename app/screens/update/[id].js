@@ -17,7 +17,7 @@ export default function UpdateScreen(){
 
 async function getTask(id){ 
   try {
-    const response = await axios.get("http://192.168.43.81:5000/tasks/get-task/"+id);
+    const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+id);
     console.log(response.data);
     setTaskDetails(response.data);
 }
@@ -50,7 +50,7 @@ async function onSubmit(){
  
   try{
 
-    const response = await axios.put("http://192.168.43.81:5000/tasks/update/"+taskDetails._id.toString(),
+    const response = await axios.put(`${process.env.API_URL}/tasks/update/`+taskDetails._id.toString(),
     {_id :taskDetails._id ,name : taskName, description :  taskDesc, priority : priority, startDate:startDate, endDate : endDate, isComplete : false, creationDate : new Date()})
 
     Alert.alert("Success","Task Updated Successfully");

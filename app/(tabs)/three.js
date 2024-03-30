@@ -68,7 +68,7 @@ async function onSubmit(){
   }
  
   try{
-    const response = await axios.post("http://192.168.43.81:5000/tasks/add-task",
+    const response = await axios.post(`${process.env.API_URL}/tasks/add-task`,
     {name : taskName, description :  taskDesc, priority : priority, startDate:startDate, endDate : endDate, isComplete : false, creationDate : new Date()})
     console.log('Task Added : ',response.data);
     setTaskName("Enter Task Name");
