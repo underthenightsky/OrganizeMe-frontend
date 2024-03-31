@@ -5,11 +5,11 @@ import { useState, useEffect } from 'react';
 import { Text, View,FlatList } from 'react-native';
 import {useRouter,Stack,
   useLocalSearchParams,Link} from 'expo-router'
-
+  import {EXPO_API_URL} from '@env';
 async function getTask(item){
   try {
     console.log(item._id);
-    const response = await axios.get(`${process.env.API_URL}tasks/get-task/`+item._id.toString());
+    const response = await axios.get(`${EXPO_API_URL}tasks/get-task/`+item._id.toString());
     console.log(response.data);             
     
 }
@@ -22,7 +22,7 @@ export default function TabTwoScreen({}) {
   const [completedTasks, setCompletedTasks] = useState([]);
   async function getCompletedTasks(){
     try {
-      const response = await axios.get(`${process.env.API_URL}/tasks/get-completed`);
+      const response = await axios.get(`${EXPO_API_URL}/tasks/get-completed`);
 
     setCompletedTasks( response.data );
     }
@@ -72,10 +72,10 @@ export default function TabTwoScreen({}) {
     }
   if (Object.keys(completedTasks).length == 0) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Completed Tasks</Text>
+    <View style={styles.container2}>
+      
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>No completed tasks</Text>
+      <Text>No tasks completed yet </Text>
     </View>
   );
 }
@@ -111,6 +111,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   title: {
     fontSize: 20,

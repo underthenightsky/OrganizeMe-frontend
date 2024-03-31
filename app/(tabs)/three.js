@@ -1,13 +1,13 @@
 import { StyleSheet, TextInput, Touchable,TouchableOpacity ,ScrollView,KeyboardAvoidingView,
 Button,Modal ,Alert} from 'react-native';
 import {useState} from 'react';
-import { Text, View ,Pressable} from 'react-native';
+import { Text, View ,Pressable, Image} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {useRouter,Stack,
   useLocalSearchParams,Link} from 'expo-router';
-
+  import {EXPO_API_URL} from '@env';
 export default function TabThreeScreen() {
   const [taskName, setTaskName] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
@@ -68,7 +68,7 @@ async function onSubmit(){
   }
  
   try{
-    const response = await axios.post(`${process.env.API_URL}/tasks/add-task`,
+    const response = await axios.post(`${EXPO_API_URL}/tasks/add-task`,
     {name : taskName, description :  taskDesc, priority : priority, startDate:startDate, endDate : endDate, isComplete : false, creationDate : new Date()})
     console.log('Task Added : ',response.data);
     setTaskName("Enter Task Name");
@@ -124,7 +124,8 @@ async function onSubmit(){
       <View style={styles.separator2} /> 
       <TouchableOpacity style={styles.button1} 
       onPress={() => {setOpenStartCalendar(true)}}>      
-        <Text>Start Date</Text>        
+         <Image source ={require('../../assets/images/calendar.png')}
+        style = {{width : 30 ,height :30}}/>       
         </TouchableOpacity>
 
        
@@ -136,7 +137,8 @@ async function onSubmit(){
         <View style={styles.separator2} /> 
         <TouchableOpacity style={styles.button1} 
       onPress={() => {setOpenEndCalendar(true)}}>      
-        <Text>End Date</Text>        
+         <Image source ={require('../../assets/images/calendar.png')}
+        style = {{width : 30 ,height :30}}/>       
         </TouchableOpacity>
 
        

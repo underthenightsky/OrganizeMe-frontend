@@ -1,5 +1,7 @@
 
 import  { useState ,useEffect} from "react";
+// require('dotenv').config();
+import {EXPO_API_URL} from '@env';
 import {
   SafeAreaView,
   View,
@@ -25,7 +27,12 @@ export default function TabOneScreen(){
   
   const getAllTasks= async() => {
     try {
-      const response = await axios.get(`${process.env.API_URL}/tasks/get-tasks`);
+      // console.log(API_URL.toString())
+      console.log(EXPO_API_URL)
+      // console.log(process.env.API_URL.toString())
+      console.log(EXPO_API_URL)
+      console.log(EXPO_API_URL.toString()+`/tasks/get-tasks`)
+      const response = await axios.get(`${EXPO_API_URL}/tasks/get-tasks`);
 
     setAllTasks( response.data );
     }
@@ -41,7 +48,7 @@ export default function TabOneScreen(){
   async function getTask(item){
     try {
       console.log(item._id);
-      const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+item._id.toString());
+      const response = await axios.get(`${EXPO_API_URL}/tasks/get-task/`+item._id.toString());
       console.log(response.data);             
       
   }
@@ -62,7 +69,7 @@ const renderTaskItem = ({ item }) => {
     const updateCompletion= async (item) => {
       try {
         console.log(item)
-        await axios.put(`${process.env.API_URL}/tasks/update-completion/${item._id.toString()}`);
+        await axios.put(`${EXPO_API_URL}/tasks/update-completion/${item._id.toString()}`);
         Alert.alert('Congratulations', 'Task Completed');
         getAllTasks()
       } catch (error) {
@@ -107,7 +114,7 @@ const renderTaskItem = ({ item }) => {
   const rightSwipeActions = (item) => {
     async function deleteTask (task)  {
       try {
-        await axios.delete(`${process.env.API_URL}/tasks/delete/${task._id.toString()}`);
+        await axios.delete(`${EXPO_API_URL}/tasks/delete/${task._id.toString()}`);
         Alert.alert('Success', 'Task deleted successfully');
         getAllTasks()
       } catch (error) {
@@ -204,7 +211,7 @@ const renderTaskItem = ({ item }) => {
 
   if (Object.keys(allTasks).length == 0) {
     return (
-      <View style={styles.container}>
+      <View style={styles.container2}>
         <Text style={styles.title}> Incomplete Tasks</Text>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <Text>No incomplete tasks yet. Click on the add task tab to create a new task.</Text>
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
   container2: {
     flex: 1,
     alignItems: 'center',//Write where the text is present with respect to the axis
-    justifyContent: 'flex-start', // shows where the horizontal axis is present
+    justifyContent: 'center', // shows where the horizontal axis is present
   },
   title: {
     fontSize: 20,

@@ -1,11 +1,12 @@
 import {useRouter,Stack,
     useLocalSearchParams,Link} from 'expo-router'
 import { StyleSheet, TextInput, Touchable,TouchableOpacity ,ScrollView,KeyboardAvoidingView,
-      Button,Modal ,Alert} from 'react-native';
+      Button,Modal ,Alert,Image} from 'react-native';
 import {useState,useEffect} from 'react';
 import { Text, View ,Pressable} from 'react-native';
 import axios from 'axios';
 import { compile } from 'morgan';
+import {EXPO_API_URL} from '@env';
 
 export default function DetailsScreen(){
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function DetailsScreen(){
     async function getTask(id){ 
         try {
           console.log(id);
-          const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+id);
+          const response = await axios.get(`${EXPO_API_URL}/tasks/get-task/`+id);
         //   console.log(response);
         //   console.log(response._response);
           console.log(response.data);

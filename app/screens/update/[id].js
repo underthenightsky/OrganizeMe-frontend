@@ -1,12 +1,13 @@
 import {useRouter,Stack,
     useLocalSearchParams,Link} from 'expo-router'
-import { StyleSheet, TextInput, Touchable,TouchableOpacity ,ScrollView,KeyboardAvoidingView,
+import { StyleSheet, TextInput, Touchable,TouchableOpacity ,ScrollView,KeyboardAvoidingView,Image,
       Button,Modal ,Alert} from 'react-native';
 import {useState,useEffect} from 'react';
 import { Text, View ,Pressable} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import {EXPO_API_URL} from '@env';
 
 
 export default function UpdateScreen(){
@@ -17,7 +18,7 @@ export default function UpdateScreen(){
 
 async function getTask(id){ 
   try {
-    const response = await axios.get(`${process.env.API_URL}/tasks/get-task/`+id);
+    const response = await axios.get(`${EXPO_API_URL}/tasks/get-task/`+id);
     console.log(response.data);
     setTaskDetails(response.data);
 }
@@ -50,7 +51,7 @@ async function onSubmit(){
  
   try{
 
-    const response = await axios.put(`${process.env.API_URL}/tasks/update/`+taskDetails._id.toString(),
+    const response = await axios.put(`${EXPO_API_URL}/tasks/update/`+taskDetails._id.toString(),
     {_id :taskDetails._id ,name : taskName, description :  taskDesc, priority : priority, startDate:startDate, endDate : endDate, isComplete : false, creationDate : new Date()})
 
     Alert.alert("Success","Task Updated Successfully");
@@ -110,7 +111,7 @@ return (
 );
 };
 return (
-  <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled   keyboardVerticalOffset={100}>
+  <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column',justifyContent: 'center',}} behavior="padding" enabled   keyboardVerticalOffset={10}>
   <ScrollView>
   <Stack.Screen
         options={{
@@ -150,8 +151,8 @@ return (
     <View style={styles.separator2} /> 
     <TouchableOpacity style={styles.button1} 
     onPress={() => {setOpenStartCalendar(true)}}>      
-      <Text>Start Date</Text>
-          
+      <Image source ={require('../../../assets/images/calendar.png')}
+        style = {{width : 30 ,height :30}}/>       
       </TouchableOpacity>
 
      
@@ -165,7 +166,8 @@ return (
       
       <TouchableOpacity style={styles.button1} 
     onPress={() => {setOpenEndCalendar(true)}}>      
-      <Text>End Date</Text>        
+       <Image source ={require('../../../assets/images/calendar.png')}
+        style = {{width : 30 ,height :30}}/>            
       </TouchableOpacity>
 
      
@@ -174,9 +176,9 @@ return (
 
             
 
-      <TouchableOpacity onPress={onSubmit} style={styles.button2}>
+      {/* <TouchableOpacity onPress={onSubmit} style={styles.button2}>
       <Text style={styles.title}>Update Task</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
 
     <Button onPress={onSubmit} title ="Update task">
       
